@@ -36,21 +36,38 @@ router.post('/', function(req, res, next) {
 
 router.post('/accountCreate', function(req, res, next) {
   var errors = accountValidation.newUser(req);
-  var username = mongoCalls.doesUsernameExists(req);
-  console.log(username);
   if(errors.length !== 0) {
-    res.render('accountCreate', {errors: errors});
+    res.render('/accountCreate', {errors: errors});
   } else {
-    if(username.length !== 0) {
-      errors.push('Username already exists.');
-      res.render('accountCreate', {errors: errors});
-    } else if (username.length === 0){
-      console.log('inelse');
-      mongoCalls.addNewUser(req);
-      res.redirect('/accountLogin');
-    }
+    return mongoCalls.doesUsernameExist(req).then(function(user) {
+      if(user) {
+        errors.push('Username exists.');
+        res.render('accountCreate', {errors: errors});
+      } else {
+        mongoCalls.addNewUser(req);
+        res.redirect('/accountLogin');
+      }
+    });
   }
 });
+
+// router.post('/accountCreate', function(req, res, next) {
+//   var errors = accountValidation.newUser(req);
+//   var username = mongoCalls.doesUsernameExists(req);
+//   console.log(username);
+//   if(errors.length !== 0) {
+//     res.render('accountCreate', {errors: errors});
+//   } else {
+//     if(username.length !== 0) {
+//       errors.push('Username already exists.');
+//       res.render('accountCreate', {errors: errors});
+//     } else if (username.length === 0){
+//       console.log('inelse');
+//       mongoCalls.addNewUser(req);
+//       res.redirect('/accountLogin');
+//     }
+//   }
+// });
 
 router.post('/accountLogin', function(req, res, next) {
   var errors = accountValidation.userLogin(req);
