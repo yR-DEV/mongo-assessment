@@ -1,8 +1,75 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: black;
+  color: lime;
 }
 
 a {
   color: #00B7FF;
+}
+
+h1.textWriter {
+  text-align: center;
+}
+
+pre.startText {
+  background-color: block;
+  color: lime;
+}
+
+p.error {
+  color: red;
+  text-align: center;
+}
+
+div.writerNewAccountWrapper {
+  width: 600px;
+  margin: 0 auto;
+}
+
+form.writerNewAccountForm {
+  margin: 1 auto;
+  color: lime;
+}
+
+input#writerNewUsername {
+  height: 18px;
+  font-size: 15px;
+  float: right;
+  width: 35%;
+}
+
+input#writerNewPassword {
+  height: 18px;
+  font-size: 15px;
+  float: right;
+  width: 35%;
+}
+
+input#writerNewPassword2 {
+  height: 18px;
+  font-size: 15px;
+  float: right;
+  width: 35%;
+}
+
+input#textWriterNewAccountButton {
+  background-color: black;
+  color: lime;
+  border-style: solid;
+  border-color: lime;
+  margin-left: 250px;
+}
+
+input.textWriterIndexCommand {
+  width: 90%;
+  color: lime;
+  margin-left: 15px;
+  size: 920;
+  length: 90%;
+  outline: none;
+  border: none;
+  background-color: black;
+  font-size: 14px;
 }
