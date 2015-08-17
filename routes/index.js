@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var db = require('monk')('localhost/textWriter');
 var accountValidation = require('../lib/javascripts/accountValidation.js');
 var mongoCalls = require('../lib/javascripts/mongoCalls.js');
 var bcrypt = require('bcrypt');
@@ -31,9 +30,40 @@ router.post('/', function(req, res, next) {
   if(command.toLowerCase().trim() === 'login') {
     res.redirect('/accountLogin');
   } else if (command.toLowerCase().trim() === 'create') {
-    res.redirect('/accountCreate')
+    res.redirect('/accountCreate');
   }
-})
+});
 
+router.post('/accountCreate', function(req, res, next) {
+  var errors = accountValidation.newUser(req);
+  var username = mongoCalls.doesUsernameExists(req);
+  console.log(username);
+  if(errors.length !== 0) {
+    res.render('accountCreate', {errors: errors});
+  } else {
+    if(username.length !== 0) {
+      errors.push('Username already exists.');
+      res.render('accountCreate', {errors: errors});
+    } else if (username.length === 0){
+      console.log('inelse');
+      mongoCalls.addNewUser(req);
+      res.redirect('/accountLogin');
+    }
+  }
+});
+
+router.post('/accountLogin', function(req, res, next) {
+  var errors = accountValidation.userLogin(req);
+  var login = mongoCalls.checkLogin(req);
+  console.log(login);
+  if(errors.length !== 0) {
+    res.render('accountLogin', {errors: errors});
+  } else {
+    if(login) {
+      res.render('accountLogin');
+    }
+  }
+  // res.redirect('/account');
+});
 
 module.exports = router;
