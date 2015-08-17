@@ -10,15 +10,15 @@ block content
   div(name="writerNewAccountWrapper", id="writerNewAccountWrapper", class="writerNewAccountWrapper")
     br
     br
-    form(id="writerNewAccountForm", method="post", action="/textWriter/createAccount")  
+    form(id="writerNewAccountForm", method="post", action="/accountCreate")  
       p.textWriter Enter Your Desired Username:
-        input.textWriter(type="text", name="writerNewUsername", id="writerNewUsername", autocomplete="off", autofocus)
+        input.textWriter(type="text", name="textWriterNewUsername", id="writerNewUsername", autocomplete="off", autofocus)
       br  
       p.textWriter Enter Your Desired Password:
-        input.textWriter(type="password", name="writerNewPassword", id="writerNewPassword", autocomplete="off")
+        input.textWriter(type="password", name="textWriterNewPassword", id="writerNewPassword", autocomplete="off")
       br  
       p.textWriter Enter The Same Password:
-        input.textWriter(type="password", name="writerNewPassword2", id="writerNewPassword2")
+        input.textWriter(type="password", name="textWriterNewPassword2", id="writerNewPassword2")
       br
       br
       input.textWriterNewAccountButton(type="submit", name="textWriterNewAccountButton", id="textWriterNewAccountButton")    
