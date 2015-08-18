@@ -33,7 +33,7 @@ router.get('/publicTxtFeed', function(req, res, next) {
   res.render('publicTxtFeed');
 });
 
-router.get('/:id/userTxts', function(req, res, next) {
+router.get('/userTxts', function(req, res, next) {
   res.render('userTxts');
 });
 
@@ -77,11 +77,14 @@ router.post('/accountUser', function(req, res, next) {
 
 });
 router.post('/newTxt', function(req, res, next) {
+  // console.log(req.body.newTxtTA);
   mongoCalls.saveNewTxt(req).then(function(errors) {
-    if(errors.length !== 0) {
+    console.log('***************');
+    console.log(errors);
+    if(errors !== []) {
       res.render('newTxt', {errors: errors});
     } else {
-      res.redirect('/publicTxtFeed');
+      res.redirect('/userTxts');
     }
   });
 });
