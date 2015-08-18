@@ -29,11 +29,12 @@ block content
 
   form(id="textWriterIndexForm", method="post", action="/")
     br
-    input.textWriterIndexCommand#textWriterIndexCommand(type="text", name="textWriterIndexCommand", autocomplete="off", autofocus)
+    p.leader $
+      input.textWriterIndexCommand#textWriterIndexCommand(type="text", name="textWriterIndexCommand", autocomplete="off", autofocus)
     p Please type login
     p to login
     br
-    p OR
+    p ========== OR =========
     br
-    p Please type Create
+    p type Create
     p to create a new Account

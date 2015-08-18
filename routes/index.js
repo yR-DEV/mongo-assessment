@@ -21,8 +21,20 @@ router.get('/accountCreate', function(req, res, next) {
 });
 
 //getting account information page
-router.get('/account', function(req, res, next) {
-  res.render('account');
+router.get('/accountUser', function(req, res, next) {
+  res.render('accountUser');
+});
+
+router.get('/newTxt', function(req, res, next) {
+  res.render('newTxt');
+});
+
+router.get('/publicTxtFeed', function(req, res, next) {
+  res.render('publicTxtFeed');
+});
+
+router.get('/:id/userTxts', function(req, res, next) {
+  res.render('userTxts');
 });
 
 router.post('/', function(req, res, next) {
@@ -35,52 +47,56 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/accountCreate', function(req, res, next) {
-  var errors = accountValidation.newUser(req);
-  if(errors.length !== 0) {
-    res.render('/accountCreate', {errors: errors});
-  } else {
-    return mongoCalls.doesUsernameExist(req).then(function(user) {
-      if(user) {
-        errors.push('Username exists.');
-        res.render('accountCreate', {errors: errors});
-      } else {
-        mongoCalls.addNewUser(req);
-        res.redirect('/accountLogin');
-      }
-    });
-  }
+  mongoCalls.createAccount(req).then(function(errors) {
+    if(errors) {
+      res.render('accountCreate', {errors: errors});
+    } else {
+      res.redirect('/accountLogin');
+    }
+  });
 });
 
-// router.post('/accountCreate', function(req, res, next) {
-//   var errors = accountValidation.newUser(req);
-//   var username = mongoCalls.doesUsernameExists(req);
-//   console.log(username);
+router.post('/accountLogin', function(req, res, next) {
+  mongoCalls.accountLogin(req).then(function(errors) {
+    if(errors) {
+      res.render('accountLogin', {errors: errors});
+    } else {
+      res.redirect('/accountUser');
+    }
+  });
+});
+
+// router.post('/accountLogin', function(req, res, next) {
+//   var errors = accountValidation.userLogin(req);
+//   var login = mongoCalls.checkLogin(req);
+//   // console.log(login);
 //   if(errors.length !== 0) {
-//     res.render('accountCreate', {errors: errors});
+//     res.render('accountLogin', {errors: errors});
 //   } else {
-//     if(username.length !== 0) {
-//       errors.push('Username already exists.');
-//       res.render('accountCreate', {errors: errors});
-//     } else if (username.length === 0){
-//       console.log('inelse');
-//       mongoCalls.addNewUser(req);
-//       res.redirect('/accountLogin');
+//     if(login) {
+//       res.render('accountLogin');
 //     }
 //   }
 // });
 
-router.post('/accountLogin', function(req, res, next) {
-  var errors = accountValidation.userLogin(req);
-  var login = mongoCalls.checkLogin(req);
-  console.log(login);
-  if(errors.length !== 0) {
-    res.render('accountLogin', {errors: errors});
-  } else {
-    if(login) {
-      res.render('accountLogin');
-    }
+router.post('/accountUser', function(req, res, next) {
+  var userCommand = req.body.textWriterIndexCommand;
+  //call on mongocalls js file goes here to populate second column on page with shit
+  if(userCommand.toLowerCase().trim() === 'new' || userCommand.toLowerCase().trim() === 'create') {
+    res.redirect('/newTxt');
+  } else if (userCommand.toLowerCase().trim() === 'public' || userCommand.toLowerCase().trim() === 'feed' || userCommand.toLowerCase.trim() === 'public feed') {
+    res.redirect('/publicTxtFeed');
   }
-  // res.redirect('/account');
+
+});
+router.post('/newTxt', function(req, res, next) {
+  mongoCalls.saveNewTxt(req).then(function(errors) {
+    if(errors.length !== 0) {
+      res.render('newTxt', {errors: errors});
+    } else {
+      res.redirect('/publicTxtFeed');
+    }
+  });
 });
 
 module.exports = router;
