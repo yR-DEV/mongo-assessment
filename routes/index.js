@@ -7,7 +7,7 @@ var bcrypt = require('bcrypt');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'txtWriter 8)' });
 });
 
 //getting login page
@@ -65,19 +65,6 @@ router.post('/accountLogin', function(req, res, next) {
     }
   });
 });
-
-// router.post('/accountLogin', function(req, res, next) {
-//   var errors = accountValidation.userLogin(req);
-//   var login = mongoCalls.checkLogin(req);
-//   // console.log(login);
-//   if(errors.length !== 0) {
-//     res.render('accountLogin', {errors: errors});
-//   } else {
-//     if(login) {
-//       res.render('accountLogin');
-//     }
-//   }
-// });
 
 router.post('/accountUser', function(req, res, next) {
   var userCommand = req.body.textWriterIndexCommand;
