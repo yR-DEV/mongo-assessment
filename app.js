@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
+var mongoCalls = require('./lib/javascripts/mongoCalls');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -28,8 +29,26 @@ app.use(cookieSession({
   keys: ['HKlkjhUYGKBHJk', 'hjklhUYTFIT'],
 }));
 
+// app.use(function (req, res, next) {
+//   mongoCalls.userCheck(req, function () {
+//     next();
+//   }, function (user) {
+//     res.locals.username = req.session.username;
+//     res.locals.id = user._id;
+//     next();
+//   });
+// });
+
 app.use('/', routes);
 app.use('/users', users);
+// app.use(function(req, res, next) {
+//   mongoCalls.userCheck(req, function() {
+//     res.redirect('/createAccount');
+//   }, function() {
+//     next();
+//   });
+// });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

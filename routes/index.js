@@ -77,8 +77,18 @@ router.post('/accountUser', function(req, res, next) {
 
 });
 router.post('/newTxt', function(req, res, next) {
-  mongoCalls.saveNewTxt(req);
-  res.render('publicTxtFeed');   
+  var ta = req.body.newTxtTA;
+  var errors = accountValidation.newTxt(req, ta);
+  console.log(errors);
+  if(errors.length === 0) {
+    mongoCalls.saveNewTxt(req, ta);
+    console.log('ayyyy');
+    res.redirect('/publicTxtFeed');
+  } else {
+    console.log('nooo');
+    res.render('newTxt', {errors: errors});
+  }
+
 });
 
 module.exports = router;

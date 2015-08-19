@@ -6,8 +6,7 @@ block content
   if(errors)
     for error in errors
       p.error= error
-  
-  textarea#newTextTA(name="newTxtTA", class="newTxtTA", autocomplete="off", autofocus)
-   
-  form.newTextForm(name="newTxtForm" method="post", action="/newTxt")  
+  form.newTextForm(name="newTxtForm" method="post", action="/newTxt")      
+    textarea#newTextTA(name="newTxtTA", class="newTxtTA" autocomplete="off", autofocus)
     input(type="submit", id="newTextButton", class="newTextButton")
+    
