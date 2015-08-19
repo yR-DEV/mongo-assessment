@@ -61,27 +61,27 @@ router.post('/accountCreate', function(req, res, next) {
 router.post('/accountLogin', function(req, res, next) {
   mongoCalls.accountLogin(req).then(function(errors) {
     // console.log(errors);
-    // if(errors) {
+    if(errors) {
       res.render('accountLogin', {errors: errors});
-    // } else {
-    //   res.redirect('/accountUser');
-    // }
+    } else {
+      res.redirect('/accountUser');
+    }
   });
 });
 
 router.post('/accountUser', function(req, res, next) {
-  var userCommand = req.body.textWriterIndexCommand;
+  var userCommand = (req.body.tWCMD).toLowerCase().trim();
   //call on mongocalls js file goes here to populate second column on page with shit
-  if(userCommand.toLowerCase().trim() === 'new' || userCommand.toLowerCase().trim() === 'create') {
+  if(userCommand === 'new' || userCommand === 'create') {
     res.redirect('/newTxt');
-  } else if (userCommand.toLowerCase().trim() === 'public' || userCommand.toLowerCase().trim() === 'feed' || userCommand.toLowerCase.trim() === 'public feed') {
+  } else if (userCommand === 'public' || userCommand === 'feed' || userCommand === 'public feed') {
     res.redirect('/publicTxtFeed');
   }
 });
 router.post('/newTxt', function(req, res, next) {
   var ta = req.body.newTxtTA;
   var errors = accountValidation.newTxt(req, ta);
-  console.log(errors);
+  // console.log(errors);
   if(errors.length === 0) {
     mongoCalls.saveNewTxt(req, ta);
     res.redirect('/publicTxtFeed');

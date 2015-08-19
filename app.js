@@ -39,6 +39,7 @@ app.use(cookieSession({
 //   });
 // });
 
+
 app.use('/', routes);
 app.use('/users', users);
 // app.use(function(req, res, next) {

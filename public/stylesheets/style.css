@@ -33,6 +33,10 @@ form.writerNewAccountForm {
   color: lime;
 }
 
+input#userAccountCommand {
+  
+}
+
 input#writerNewUsername {
   height: 18px;
   font-size: 15px;
