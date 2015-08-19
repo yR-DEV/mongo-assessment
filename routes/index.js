@@ -77,16 +77,8 @@ router.post('/accountUser', function(req, res, next) {
 
 });
 router.post('/newTxt', function(req, res, next) {
-  // console.log(req.body.newTxtTA);
-  mongoCalls.saveNewTxt(req).then(function(errors) {
-    console.log('***************');
-    console.log(errors);
-    if(errors !== []) {
-      res.render('newTxt', {errors: errors});
-    } else {
-      res.redirect('/userTxts');
-    }
-  });
+  mongoCalls.saveNewTxt(req);
+  res.render('publicTxtFeed');   
 });
 
 module.exports = router;
