@@ -82,10 +82,8 @@ router.post('/newTxt', function(req, res, next) {
   console.log(errors);
   if(errors.length === 0) {
     mongoCalls.saveNewTxt(req, ta);
-    console.log('ayyyy');
     res.redirect('/publicTxtFeed');
   } else {
-    console.log('nooo');
     res.render('newTxt', {errors: errors});
   }
 
