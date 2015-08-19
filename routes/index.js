@@ -34,9 +34,10 @@ router.get('/publicTxtFeed', function(req, res, next) {
 });
 
 router.get('/userTxts', function(req, res, next) {
-  return mongoCalls.findMyTxts(req).then(function(doc) {
-    res.render('userTxts', {doc: doc});
-  });
+  // mongoCalls.findmyTxts(req).then(function(docs) {
+  //
+  // })
+  res.render('userTxts');
 });
 
 router.post('/', function(req, res, next) {
@@ -84,7 +85,7 @@ router.post('/newTxt', function(req, res, next) {
   // console.log(errors);
   if(errors.length === 0) {
     mongoCalls.saveNewTxt(req, ta);
-    res.redirect('/publicTxtFeed');
+    res.redirect('/userTxts');
   } else {
     res.render('newTxt', {errors: errors});
   }
