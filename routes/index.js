@@ -34,7 +34,9 @@ router.get('/publicTxtFeed', function(req, res, next) {
 });
 
 router.get('/userTxts', function(req, res, next) {
-  res.render('userTxts');
+  return mongoCalls.findMyTxts(req).then(function(doc) {
+    res.render('userTxts', {doc: doc});
+  });
 });
 
 router.post('/', function(req, res, next) {
@@ -58,11 +60,12 @@ router.post('/accountCreate', function(req, res, next) {
 
 router.post('/accountLogin', function(req, res, next) {
   mongoCalls.accountLogin(req).then(function(errors) {
-    if(errors) {
+    // console.log(errors);
+    // if(errors) {
       res.render('accountLogin', {errors: errors});
-    } else {
-      res.redirect('/accountUser');
-    }
+    // } else {
+    //   res.redirect('/accountUser');
+    // }
   });
 });
 
@@ -74,7 +77,6 @@ router.post('/accountUser', function(req, res, next) {
   } else if (userCommand.toLowerCase().trim() === 'public' || userCommand.toLowerCase().trim() === 'feed' || userCommand.toLowerCase.trim() === 'public feed') {
     res.redirect('/publicTxtFeed');
   }
-
 });
 router.post('/newTxt', function(req, res, next) {
   var ta = req.body.newTxtTA;
