@@ -40,12 +40,6 @@ router.get('/publicTxtFeed', function(req, res, next) {
   });
 });
 
-// router.get('/showEntry/:id', function(req, res,next) {
-//   mongoCalls.editEntry(req).then(function(entry) {
-//     res.render('/editEntry/' + req.params.id, {entry: entry});
-//   });
-// });
-
 router.get('/userTxts', function(req, res, next) {
   mongoCalls.userEntries(req).then(function(documents) {
     console.log(documents);
@@ -58,6 +52,12 @@ router.get('/showEntry/:id', function(req, res, next) {
   mongoCalls.showEntry(req).then(function(entry) {
     // console.log(entry);
     res.render('showEntry', {entry: entry});
+  });
+});
+
+router.post('/editEntry/:id', function(req, res, next) {
+  mongoCalls.editEntry(req).then(function(updated) {
+    res.redirect('/userTxts');
   });
 });
 

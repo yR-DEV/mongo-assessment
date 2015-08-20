@@ -7,8 +7,8 @@ block content
   if(errors)
     for error in errors
       p.error= error   
-  form.showTextForm(name="showTxtForm" method="post", action="/userTxts")      
+  form.showTextForm(name="showTxtForm" method="post", action="/editEntry/" + entry._id)      
     textarea#showTextTA(name="showTxtTA", class="showTxtTA" autocomplete="off", autofocus)= entry.entry
     br
-    input(type="submit", id="showTextButton", class="showTextButton")
+    input(type="submit", id="showTextButton", class="showTextButton" value="EDIT ENTRY") 
   
