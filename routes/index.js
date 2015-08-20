@@ -23,7 +23,7 @@ router.get('/accountCreate', function(req, res, next) {
 
 router.get('/showEntry', function(req, res, next) {
   res.render('showEntry');
-})
+});
 
 //getting account information page
 router.get('/accountUser', function(req, res, next) {
@@ -38,10 +38,6 @@ router.get('/likedEntry', function(req, res, next) {
   res.render('likedEntry');
 });
 
-// router.get('/addToEntry', function(req, res, next) {
-//   res.render('addToEntry');
-// })
-
 router.get('/publicTxtFeed', function(req, res, next) {
   mongoCalls.findAllEntries(req).then(function(documents) {
     res.render('publicTxtFeed', {documents: documents});
@@ -50,7 +46,6 @@ router.get('/publicTxtFeed', function(req, res, next) {
 
 router.get('/userTxts', function(req, res, next) {
   mongoCalls.userEntries(req).then(function(documents) {
-    // console.log(documents);
     res.render('userTxts', {documents: documents});
   });
 
@@ -58,7 +53,6 @@ router.get('/userTxts', function(req, res, next) {
 
 router.get('/showEntry/:id', function(req, res, next) {
   mongoCalls.showEntry(req).then(function(entry) {
-    // console.log(entry);
     res.render('showEntry', {entry: entry});
   });
 });
@@ -108,7 +102,6 @@ router.post('/accountCreate', function(req, res, next) {
 
 router.post('/accountLogin', function(req, res, next) {
   mongoCalls.accountLogin(req).then(function(errors) {
-    // console.log(errors);
     if(errors) {
       res.render('accountLogin', {errors: errors});
     } else {
@@ -119,7 +112,6 @@ router.post('/accountLogin', function(req, res, next) {
 
 router.post('/accountUser', function(req, res, next) {
   var userCommand = (req.body.tWCMD).toLowerCase().trim();
-  //call on mongocalls js file goes here to populate second column on page with shit
   if(userCommand === 'new' || userCommand === 'create') {
     res.redirect('/newTxt');
   } else if (userCommand === 'public' || userCommand === 'feed' || userCommand === 'public feed') {
@@ -129,7 +121,6 @@ router.post('/accountUser', function(req, res, next) {
 router.post('/newTxt', function(req, res, next) {
   var ta = req.body.newTxtTA;
   var errors = accountValidation.newTxt(req, ta);
-  // console.log(errors);
   if(errors.length === 0) {
     mongoCalls.saveNewTxt(req, ta);
     res.redirect('/userTxts');
@@ -139,9 +130,8 @@ router.post('/newTxt', function(req, res, next) {
 });
 
 router.post('/likeAnEntry/:id', function(req, res, next) {
-  // console.log('inroute');
   mongoCalls.likeEntry(req).then(function(user) {
-    res.redirect('/userTxts', {user: user});
+    res.redirect('/userTxts');
   });
 });
 
