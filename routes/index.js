@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var accountValidation = require('../lib/javascripts/accountValidation.js');
 var mongoCalls = require('../lib/javascripts/mongoCalls.js');
+var txtValidation = require('../lib/javascripts/txtValidation.js');
 var bcrypt = require('bcrypt');
 
 
@@ -20,6 +21,10 @@ router.get('/accountCreate', function(req, res, next) {
   res.render('accountCreate');
 });
 
+router.get('/showEntry', function(req, res, next) {
+  res.render('showEntry');
+})
+
 //getting account information page
 router.get('/accountUser', function(req, res, next) {
   res.render('accountUser');
@@ -30,14 +35,30 @@ router.get('/newTxt', function(req, res, next) {
 });
 
 router.get('/publicTxtFeed', function(req, res, next) {
-  res.render('publicTxtFeed');
+  mongoCalls.findAllEntries(req).then(function(documents) {
+    res.render('publicTxtFeed', {documents: documents});
+  });
 });
 
+// router.get('/showEntry/:id', function(req, res,next) {
+//   mongoCalls.editEntry(req).then(function(entry) {
+//     res.render('/editEntry/' + req.params.id, {entry: entry});
+//   });
+// });
+
 router.get('/userTxts', function(req, res, next) {
-  // mongoCalls.findmyTxts(req).then(function(docs) {
-  //
-  // })
-  res.render('userTxts');
+  mongoCalls.userEntries(req).then(function(documents) {
+    console.log(documents);
+    res.render('userTxts', {documents: documents});
+  });
+
+});
+
+router.get('/showEntry/:id', function(req, res, next) {
+  mongoCalls.showEntry(req).then(function(entry) {
+    // console.log(entry);
+    res.render('showEntry', {entry: entry});
+  });
 });
 
 router.post('/', function(req, res, next) {

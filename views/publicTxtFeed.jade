@@ -3,3 +3,6 @@ extends layout
 block content
 
   h1 Public Feed
+  if(documents)
+    for doc in documents
+      p= doc.entry

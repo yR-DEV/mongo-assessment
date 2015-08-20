@@ -34,7 +34,7 @@ form.writerNewAccountForm {
 }
 
 input#userAccountCommand {
-  
+
 }
 
 input#writerNewUsername {
@@ -76,7 +76,31 @@ textarea#newTextTA {
   outline: none;
   border: 1px solid lime;
   font-size: 16px;
-  }
+}
+
+textarea#editTextTA {
+  width:90%;
+  height: 650px;
+  resize: none;
+  margin: 0 auto;
+  background-color: black;
+  color: lime;
+  outline: none;
+  border: 1px solid lime;
+  font-size: 16px;
+}
+
+textarea#showTextTA {
+  width:90%;
+  height: 650px;
+  resize: none;
+  margin: 0 auto;
+  background-color: black;
+  color: lime;
+  outline: none;
+  border: 1px solid lime;
+  font-size: 16px;
+}
 
 form.newTextForm{
   background-color: black;
@@ -92,14 +116,26 @@ input#newTextButton {
   margin: auto;
   outline: none;
 }
- /*input.textWriter {
+
+input#editTextButton {
   background-color: black;
   color: lime;
+  border-style: 1px solid lime;
+  border-color: lime;
+  margin: auto;
   outline: none;
-  border: none;
-  height: 16px;
-  font-size: 16px;
-}*/
+}
+
+input#showTextButton {
+  background-color: black;
+  color: lime;
+  border-style: 1px solid lime;
+  border-color: lime;
+  margin: auto;
+  outline: none;
+}
+
+
 
 input.textWriterIndexCommand {
   width: 90%;
@@ -119,4 +155,8 @@ p.leader {
   color: lime;
   background-color: black;
   font-size: 14px;
+}
+
+p.leaderDoc {
+  color: lime;
 }

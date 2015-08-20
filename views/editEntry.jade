@@ -1,0 +1,13 @@
+extends layout
+
+block content
+
+  h1 Edit Txt!
+  if(errors)
+    for error in errors
+      p.error= error
+  form.editTextForm(name="editTxtForm" method="post", action="/userTxts")      
+    textarea#editTextTA(name="editTxtTA", class="editTxtTA" autocomplete="off", autofocus)
+    br
+    input(type="submit", id="editTextButton", class="editTextButton")
+    

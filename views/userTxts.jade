@@ -4,4 +4,8 @@ block content
 
   h1 USER TEXTS
 
-  p loop for user documents goes here
+  if(documents)
+    for doc in documents
+      div.userDoc
+        p= doc.entry
+        a(href="showEntry/" + doc._id) SHOW TXT HERE!
