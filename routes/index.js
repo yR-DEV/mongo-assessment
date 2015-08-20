@@ -34,6 +34,14 @@ router.get('/newTxt', function(req, res, next) {
   res.render('newTxt');
 });
 
+router.get('/likedEntry', function(req, res, next) {
+  res.render('likedEntry');
+});
+
+// router.get('/addToEntry', function(req, res, next) {
+//   res.render('addToEntry');
+// })
+
 router.get('/publicTxtFeed', function(req, res, next) {
   mongoCalls.findAllEntries(req).then(function(documents) {
     res.render('publicTxtFeed', {documents: documents});
@@ -42,7 +50,7 @@ router.get('/publicTxtFeed', function(req, res, next) {
 
 router.get('/userTxts', function(req, res, next) {
   mongoCalls.userEntries(req).then(function(documents) {
-    console.log(documents);
+    // console.log(documents);
     res.render('userTxts', {documents: documents});
   });
 
@@ -58,6 +66,24 @@ router.get('/showEntry/:id', function(req, res, next) {
 router.post('/editEntry/:id', function(req, res, next) {
   mongoCalls.editEntry(req).then(function(updated) {
     res.redirect('/userTxts');
+  });
+});
+
+router.get('/addToEntry/:id/', function(req, res, next) {
+  mongoCalls.showEntry(req).then(function(entry) {
+    res.render('addtoEntry', {entry: entry});
+  });
+});
+
+router.get('/likeAnEntry/:id', function(req, res, next) {
+  mongoCalls.showEntry(req).then(function(entry) {
+    res.render('likeAnEntry', {entry: entry});
+  });
+});
+
+router.post('/updateEntry/:id', function(req, res, next) {
+  mongoCalls.addToEntry(req).then(function(updated) {
+    res.redirect('/publicTxtFeed');
   });
 });
 
@@ -110,7 +136,13 @@ router.post('/newTxt', function(req, res, next) {
   } else {
     res.render('newTxt', {errors: errors});
   }
+});
 
+router.post('/likeAnEntry/:id', function(req, res, next) {
+  // console.log('inroute');
+  mongoCalls.likeEntry(req).then(function(user) {
+    res.redirect('/userTxts', {user: user});
+  });
 });
 
 module.exports = router;

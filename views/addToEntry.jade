@@ -1,0 +1,14 @@
+extends layout
+
+block content
+
+  h1 add to
+    
+    
+  form(name="addToEntryForm", method="post" action="/updateEntry/" + entry._id)
+    div.originalText
+      p.addToText(name="addToText")= entry.entry
+    textarea.addToTextTA(autocomplete="off" name="addToTextTA" autofocus)
+    br
+    br
+    input.addToTexTButton(type="submit" name="addToTextButton" id="addToTextButton")

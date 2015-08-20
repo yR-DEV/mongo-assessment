@@ -6,3 +6,6 @@ block content
   if(documents)
     for doc in documents
       p= doc.entry
+      a(href="addToEntry/" + doc._id) Add to an entry!
+      br
+      a(href="likeAnEntry/" + doc._id) Like this entry!

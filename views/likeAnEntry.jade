@@ -1,0 +1,10 @@
+extends layout
+
+block content
+
+  h1 localhost
+  p= entry.entry
+  
+  
+  form(method="post" action="/likeAnEntry/" + entry._id name="likeAnEntryForm" id="likeAnEntryForm" class="likeAnEntryForm")
+    input(type="submit", name="likeAnEntryButton" id="likeAnEntryButton" class="likeAnEntryButton" value="LIKE THIS POST!")

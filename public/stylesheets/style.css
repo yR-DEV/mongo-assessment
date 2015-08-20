@@ -90,6 +90,18 @@ textarea#editTextTA {
   font-size: 16px;
 }
 
+textarea.addToTextTA {
+  width:90%;
+  height: 450px;
+  resize: none;
+  margin: 0 auto;
+  background-color: black;
+  color: lime;
+  outline: none;
+  border: 1px solid lime;
+  font-size: 16px;
+}
+
 textarea#showTextTA {
   width:90%;
   height: 650px;
@@ -109,6 +121,15 @@ form.newTextForm{
 }
 
 input#newTextButton {
+  background-color: black;
+  color: lime;
+  border-style: 1px solid lime;
+  border-color: lime;
+  margin: auto;
+  outline: none;
+}
+
+input#addToTextButton {
   background-color: black;
   color: lime;
   border-style: 1px solid lime;
